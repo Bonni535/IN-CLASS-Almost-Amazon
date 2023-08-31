@@ -14,6 +14,19 @@ const getAuthors = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// FIXME: UPDATE AUTHOR
+const updateAuthor = (payload) => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/authors/${payload.firebaseKey}.json`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  }).then((response) => response.json())
+    .then((data) => resolve(data))
+    .catch(reject);
+});
+
 // FIXME: CREATE AUTHOR
 const createAuthor = (payload) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/author.json`, {
@@ -23,6 +36,9 @@ const createAuthor = (payload) => new Promise((resolve, reject) => {
     },
     body: JSON.stringify(payload)
   }).then((response) => response.json())
+    .then((responseJson) => {
+      updateAuthor({firebaseKey: responseJson.name})
+    })
     .then((data) => resolve(data))
     .catch(reject);
 });
@@ -50,20 +66,7 @@ const deleteSingleAuthor = (firebaseKey) => new Promise((resolve, reject) => {
   }).then((response) => response.json())
     .then(resolve)
     .catch(reject);
-
-// FIXME: UPDATE AUTHOR
-const updateAuthor = (payload) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/authors/${payload.firebaseKey}.json`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  }).then((response) => response.json())
-    .then((data) => resolve(data))
-    .catch(reject);
 });
-
 
 const favouriteAuthor = () => new Promise((resolve, reject) => {
   fetch(`${endpoint}/author.json?orderBy="sale"&equalTo=true`, {
