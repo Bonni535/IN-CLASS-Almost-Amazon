@@ -9,7 +9,7 @@ import addBookForm from "../components/forms/addBookForm";
 import { showAuthors } from "../pages/authors";
 import { showBooks } from "../pages/books";
 
-const domEvents = () => {
+const domEvents = (user) => {
   document.querySelector("#main-container").addEventListener("click", (e) => {
     // TODO: CLICK EVENT FOR DELETING A BOOK
     if (e.target.id.includes("delete-book")) {
@@ -21,14 +21,14 @@ const domEvents = () => {
         console.warn("splitArr", splitArr);
         const [, firebaseKey] = e.target.id.split("--");
         deleteBook(firebaseKey)
-          .then(() => getBooks())
+          .then(() => getBooks(user.uid))
           .then((books) => showBooks(books));
       }
     }
 
     // TODO: CLICK EVENT FOR SHOWING FORM FOR ADDING A BOOK
     if (e.target.id.includes("add-book-btn")) {
-      addBookForm();
+      addBookForm(user.uid);
     }
 
     // TODO: CLICK EVENT EDITING/UPDATING A BOOK
@@ -50,7 +50,7 @@ const domEvents = () => {
         console.warn(e.target.id.split("--"));
         const [, firebaseKey] = e.target.id.split("--");
         deleteSingleAuthor(firebaseKey)
-          .then(() => getAuthors())
+          .then(() => getAuthors(user.uid))
           .then((authors) => showAuthors(authors));
       }
     }
