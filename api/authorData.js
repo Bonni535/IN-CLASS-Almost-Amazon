@@ -3,19 +3,20 @@ import client from "../utils/client";
 const endpoint = client.databaseURL;
 
 // FIXME:  GET ALL AUTHORS
-const getAuthors = () =>
-  new Promise((resolve, reject) => {
-    fetch(`${endpoint}/authors.json`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
-      .catch(reject);
-  });
-const getAuthorsByUid = (uid) =>
+// original getAuthors without UID
+// const getAuthors = () =>
+//   new Promise((resolve, reject) => {
+//     fetch(`${endpoint}/authors.json`, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => resolve(Object.values(data)))
+//       .catch(reject);
+//   });
+const getAuthors = (uid) =>
   new Promise((resolve, reject) => {
     fetch(`${endpoint}/authors.json?orderBy="uid"&equalTo="${uid}"`, {
       method: "GET",
@@ -135,6 +136,5 @@ export {
   deleteSingleAuthor,
   updateAuthor,
   getAuthorBooks,
-  getAuthorsByUid,
   getFavoriteAuthors,
 };
