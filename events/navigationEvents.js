@@ -1,23 +1,30 @@
 import { signOut } from "../utils/auth";
-import { getBooks } from "../api/bookData";
+import { booksOnSale, getBooks } from "../api/bookData";
 import { showBooks } from "../pages/books";
 import { getAuthors } from "../api/authorData";
 import { showAuthors } from "../pages/authors";
 
 // navigation events
 const navigationEvents = (user) => {
+  document.querySelector("#main-page").addEventListener("click", () => {
+    getBooks(user.uid).then(showBooks);
+  })
+
+
   // LOGOUT BUTTON
   document.querySelector("#logout-button").addEventListener("click", signOut);
 
   // TODO: BOOKS ON SALE
   document.querySelector("#sale-books").addEventListener("click", () => {
     console.warn("CLICKED SALE BOOKS");
+    booksOnSale(user.uid).then(showBooks);
   });
 
   // TODO: ALL BOOKS
   document.querySelector("#all-books").addEventListener("click", () => {
     getBooks(user.uid).then(showBooks);
   });
+
 
   // FIXME: STUDENTS Create an event listener for the Authors
   // 1. When a user clicks the authors link, make a call to firebase to get all authors

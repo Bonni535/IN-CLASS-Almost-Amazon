@@ -6,6 +6,8 @@ const emptyBooks = () => {
   renderToDOM('#store', domString);
 };
 
+
+
 const showBooks = (array) => {
   clearDom();
 
