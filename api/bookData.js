@@ -76,7 +76,7 @@ const updateBook = (payload) =>
 // TODO: FILTER BOOKS ON SALE
 const booksOnSale = (uid) =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}.uid}"`, {
+    fetch(`${endpoint}/books.json?orderBy="uid"&equalTo="${uid}"`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
