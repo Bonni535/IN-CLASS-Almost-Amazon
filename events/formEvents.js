@@ -43,7 +43,7 @@ const formEvents = (user) => {
       };
 
       updateBook(payload).then(() => {
-        getBooks().then(showBooks);
+        getBooks(user.uid).then(showBooks);
       });
     }
 
@@ -77,7 +77,7 @@ const formEvents = (user) => {
       };
       console.warn(payload);
       updateAuthor(payload).then(() => {
-        getAuthors().then(showAuthors);
+        getAuthors(user.uid).then(showAuthors);
       });
     }
   });
